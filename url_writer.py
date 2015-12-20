@@ -1,5 +1,3 @@
-import csv
-import requests
 import json 
 import civi_base
 
@@ -33,26 +31,3 @@ def get_contact_upload_params(contact):
     })
     return contact_upload_params
 
-class CiviContactInject():
-    protocol_s = 'http://';
-
-    def upload_CSV(self, csv_filename):
-        with open(csv_filename, 'rt') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                contact = row
-                upload_result = requests.post(
-                    self.protocol_s + civi_base.base_URL, 
-                    params = get_contact_upload_params(contact)
-                )
-                print("URL: "+upload_result.url)
-                print("RESULT: "+upload_result.text)
-
-
-def main():
-    c = CiviContactInject()
-    c.upload_CSV("sample.csv")
-
-
-if __name__ == '__main__':
-    main()
